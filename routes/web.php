@@ -18,9 +18,7 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
 
-Route::resource('users',UserController::class);
+Route::middleware(['auth:sanctum', 'verified'])->resource('users',UserController::class);

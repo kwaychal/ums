@@ -14,6 +14,20 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     use PasswordValidationRules;
+
+    public function dashboard(Request $request)
+    {
+        if(Auth::user() && Auth::user()->role == 'user'){
+            //Auth::logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect('/');
+        }
+        return view('dashboard');
+    }
     /**
      * Display a listing of the resource.
      *
